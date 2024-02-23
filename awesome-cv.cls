@@ -377,6 +377,10 @@
 \newcommand*{\recipientname}[1]{\def\@recipientname{#1}}
 \newcommand*{\recipientaddress}[1]{\def\@recipientaddress{#1}}
 
+% Defines recipient's logo (cover letter only)
+% Usage: \recipientlogo{<recipient address>}
+\newcommand*{\recipientlogo}[1]{\def\@recipientlogo{#1}}
+
 % Defines the title for letter (cover letter only, optional)
 % Usage: \lettertitle{<title>}
 \newcommand*{\lettertitle}[1]{\def\@lettertitle{#1}}
@@ -776,12 +780,21 @@
   \vspace{8.4mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
-  \end{tabular*}
-  \begin{singlespace}
-    \recipientaddressstyle{\@recipientaddress} \\\\
-  \end{singlespace}
+  \ifthenelse{\isundefined{\@recipientlogo}}
+  {  
+  	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+  		\recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
+  	\end{tabular*}
+  	\begin{singlespace}
+  		\recipientaddressstyle{\@recipientaddress} \\\\
+  	\end{singlespace}}
+  {
+  	\includegraphics[scale=0.10]{\@recipientlogo} \\
+  	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+  		\recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
+  	\end{tabular*}
+  }
+
   \ifthenelse{\isundefined{\@lettertitle}}
     {}
     {\lettertitlestyle{\@lettertitle} \\}
@@ -801,3 +814,11 @@
       \letterenclosurestyle{\@letterenclname: \@letterenclosure} \\
     }
 }
+
+%------------------------------------------------------------------------------
+% These new commands create formatted c plus plus and c sharp words insted of just text.
+%C++
+\newcommand\Cpp{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\textit{++}}}
+%C#
+\newcommand\Csh{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\textit{\#}}}
+%-------------------------------------------------------------------------------

@@ -18,10 +18,14 @@ SET(out "${CMAKE_CURRENT_SOURCE_DIR}/output")
 
 FILE(GLOB_RECURSE contents_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "spencer/resume/*")
 
+SET(COVER_LETTER_BASE_FILENAME "coverletter")
 SET(RESUME_BASE_FILENAME "resume")
 SET(RESUME_TEX "./spencer/${RESUME_BASE_FILENAME}.tex")
 MESSAGE(STATUS ${contents_files})
 
 ADD_LATEX_DOCUMENT("${RESUME_TEX}"
-  INPUTS "${contents_files}"  
+  INPUTS "${contents_files}"
+
 )
+
+
