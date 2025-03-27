@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.11)
 PROJECT(LatexProject NONE)
 
-include(UseLATEX)
+include(UseLATEX.cmake)
 
 find_package(LATEX COMPONENTS XELATEX)
 IF(LATEX_FOUND)
